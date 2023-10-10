@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple calculator</title>
+  <style>
+    .calculator {
+      width: 220px;
+      border: 1px solid #ccc;
+    }
+    .result {
+      height: 40px;
+      background-color: #eee;
+      text-align: right;
+      padding: 5px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    td {
+      width: 25%;
+      height: 50px;
+      text-align: center;
+      border: 1px solid #ccc;
+    }
+    td.operator {
+      background-color: #f2f2f2;
+    }
+    td.button:hover {
+      background-color: #ddd;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <div class="result">
+      <input type="text" id="result" readonly>
+    </div>
+    <table>
+      <tr>
+        <td class="button" onclick="concatNumber(7)">7</td>
+        <td class="button" onclick="concatNumber(8)">8</td>
+        <td class="button" onclick="concatNumber(9)">9</td>
+        <td class="operator" onclick="operate('+')">+</td>
+      </tr>
+      <tr>
+        <td class="button" onclick="concatNumber(4)">4</td>
+        <td class="button" onclick="concatNumber(5)">5</td>
+        <td class="button" onclick="concatNumber(6)">6</td>
+        <td class="operator" onclick="operate('-')">-</td>
+      </tr>
+      <tr>
+        <td class="button" onclick="concatNumber(1)">1</td>
+        <td class="button" onclick="concatNumber(2)">2</td>
+        <td class="button" onclick="concatNumber(3)">3</td>
+        <td class="operator" onclick="operate('*')">*</td>
+      </tr>
+      <tr>
+        <td class="button" onclick="concatNumber(0)">0</td>
+        <td class="button" onclick="clearResult()">C</td>
+        <td class="button" onclick="calculate()">=</td>
+        <td class="operator" onclick="operate('/')">/</td>
+      </tr>
+    </table>
+  </div>
+
+  <script>
+    var inputField = document.getElementById('result');
+    var result = 0;
+    var operator = '';
+
+    function concatNumber(num) {
+      inputField.value += num;
+    }
+
+    function clearResult() {
+      result = 0;
+      operator = '';
+      inputField.value = '';
+    }
+
+    function operate(op) {
+      if (inputField.value !== '') {
+        result = Number(inputField.value);
+        operator = op;
+        inputField.value = '';
+      }
+    }
+
+    function calculate() {
+      if (inputField.value !== '') {
+        var num = Number(inputField.value);
+        switch (operator) {
+          case '+':
+            result += num;
+            break;
+          case '-':
+            result -= num;
+            break;
+          case '*':
+            result *= num;
+            break;
+          case '/':
+            result /= num;
+            break;
+        }
+        inputField.value = result;
+        result = 0;
+        operator = '';
+      }
+    }
+  </script>
+</body>
+</html>
